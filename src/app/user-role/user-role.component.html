@@ -1,0 +1,116 @@
+<mat-card class="mb-4">
+    <mat-card-content>
+      <form [formGroup]="filterForm" (ngSubmit)="filter()">
+        <div class="row mt-2">
+          <mat-form-field class="col-md-4 mb-2 col-12" appearance="outline">
+            <mat-label>Start Date</mat-label>        
+            <input matInput [matDatepicker]="pickerstart" formControlName="start_date">
+            <mat-datepicker-toggle matSuffix [for]="pickerstart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerstart></mat-datepicker>
+            <mat-error *ngIf="filterForm.controls['start_date'].errors?.required" >
+              Start Date is required.
+            </mat-error>                        
+         </mat-form-field>
+    
+         <mat-form-field class="col-md-4 mb-2 col-12" appearance="outline">
+          <mat-label>End Date</mat-label>        
+          <input matInput [matDatepicker]="picker" formControlName="end_date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <!-- <mat-hint>Select End Date</mat-hint> -->
+          <mat-error *ngIf="filterForm.controls['end_date'].errors?.required" >
+            End Date is required.
+          </mat-error>                        
+       </mat-form-field>
+        <div class="col-md-4 col-12" >
+          <mat-form-field appearance="outline">
+            <mat-label>Role Name</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let status of statusname" [value]="status.value">
+                {{ status.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- <button type="submit" class="btn filterButton" mat-raised-button>Filter</button> -->
+        </div>
+        </div>
+      </form>    
+    </mat-card-content>
+    <div class="col-md-8 d-flex">
+    <mat-paginator #paginator
+             
+    [pageSizeOptions]="[5, 10, 20, 40]">
+  </mat-paginator>
+  </div>
+  <div  class="row">
+    <div class="col-md-12" style="text-align: end;">
+      <button type="submit" class="btn filterButton" mat-raised-button>Clear</button>
+    </div>
+   </div>
+  </mat-card>
+  <mat-card class="mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title class="title"> User Role</mat-card-title>
+        <span class="spacer">&nbsp;</span>
+        <div class="">
+        <button mat-icon-button (click)="add()" class="addBtn">
+          <mat-icon>person_add</mat-icon>
+        </button>
+      </div>
+      </mat-card-header>
+      <mat-card-content>
+      
+        <div class="row">
+          <div class="fil">
+          <div class="col-md-4 col-md-4">&nbsp;
+          </div>
+          <div class="col-md-10 col-sm-12 col-12 ml-auto">
+            <mat-form-field class="float-right">
+              <mat-label>Filter</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
+            </mat-form-field>
+          </div>
+        </div>
+        </div>
+    
+     
+        <div class="example-container">
+          <mat-table #table [dataSource]="dataSource">
+        
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+        
+            <!-- Position Column -->
+            <ng-container matColumnDef="rolename">
+              <mat-header-cell *matHeaderCellDef> Role Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <span class="mobile-label"></span>
+                {{element.role_name}} 
+              </mat-cell>
+            </ng-container>
+        
+          <ng-container matColumnDef="Action">
+              <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <!-- <span class="mobile-label"> -->
+                  
+                  <mat-icon class="mx-2 actionIcon">visibility</mat-icon>
+                  <mat-icon class="mx-2 actionIcon">edit</mat-icon>
+                  
+                  <mat-icon class="mx-2 actionIcon" (click)="deleteTicket()">delete</mat-icon>
+                <!-- </span> -->
+                
+              </mat-cell>
+            </ng-container>
+  
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+         
+        </div>
+        
+      </mat-card-content>
+    </mat-card>
+  
+    
+    <app-ngx-spinner></app-ngx-spinner>

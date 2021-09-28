@@ -1,0 +1,28 @@
+button.mat-focus-indicator.submitbtn.mx-3.mat-raised-button.mat-button-base {
+    background-color: #31d884;
+    min-width: 70px;
+    color: white;
+    outline: none;
+    text-align: center;
+}
+button.mat-focus-indicator.cancelbtn.mat-raised-button.mat-button-base {
+    background-color: tomato;
+    min-width: 60px;
+    outline: none;
+    text-align: center;
+    color: white;
+}
+h1 {
+    font: 400 24px/32px Cabin;
+    letter-spacing: normal;
+    margin: 0 0 16px;
+}
+.ml-auto, .mx-auto {
+    margin-left: auto!important;
+}
+.mat-card-header .mat-card-title {
+    margin-bottom: 12px;
+    color: #EE6235;
+    font-size: 16px;
+    margin-left: -18px;
+}

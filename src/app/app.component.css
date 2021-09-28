@@ -1,0 +1,8 @@
+.mat-toolbar.mat-primary {
+    background:red;
+    color: #fff;
+}
+mat-sidenav-content.mat-drawer-content.mat-sidenav-content {
+    overflow-y: hidden;
+    height:100%;
+}

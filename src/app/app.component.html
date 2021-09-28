@@ -1,0 +1,55 @@
+<!-- Toolbar -->
+<mat-toolbar color="primary" class="header">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <div class="col-md-6">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+       
+      </button>
+      <span class="rmcfont">RMCTransport </span>
+    </div>
+    </div>
+  </mat-toolbar>
+  
+  <mat-sidenav-container>
+    <!-- Sidenav -->
+    <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+      [fixedTopGap]>
+      <mat-nav-list>
+        <a mat-list-item routerLinkActive="active" routerLink="/vehicle-status">
+          <mat-icon>dashboard</mat-icon> Vehicle Status
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/vehicle-category">
+          <mat-icon>person</mat-icon>  Vehicle Category
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/user-role">
+          <mat-icon>person</mat-icon>User Roles
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/booking-status">
+          <mat-icon>home</mat-icon>Booking Status 
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/booking-cancel">
+          <mat-icon>accessibility</mat-icon>Cancel Bookings
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/star-ratings">
+          <mat-icon>stars</mat-icon>Star ratings
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/star-option">
+          <mat-icon>format_list_bulleted</mat-icon>Options By Ratings
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/banner">
+          <mat-icon>home</mat-icon>Banners
+        </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/messagetemplate">
+          <mat-icon>person</mat-icon>Message Template
+        </a>
+      
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <!-- Main content -->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

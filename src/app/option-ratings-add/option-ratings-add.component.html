@@ -1,0 +1,49 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <h1>Booking Status</h1>
+        </div>    
+      </div>
+      <form [formGroup]="vendorForms" novalidate (ngSubmit)="onSubmit()">
+      <mat-card class="mat-elevation-z2 mb-4">
+        <mat-card-header>
+          <mat-card-title class="title">Basic Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+       <div class="row">
+                        <mat-form-field class="col-md-4"  appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter Name" formControlName="color_code" required>
+                            <mat-icon matSuffix>face</mat-icon>
+                           </mat-form-field>
+                           <mat-form-field class="col-md-4"  appearance="outline">
+                            <mat-label>Value</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter Value" formControlName="color_code" required>
+                            <mat-icon matSuffix>face</mat-icon>
+                           </mat-form-field>
+                           <mat-form-field class="col-md-4"  appearance="outline">
+                            <mat-label>Star id</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter star id" formControlName="color_code" required>
+                            <mat-icon matSuffix>face</mat-icon>
+                           </mat-form-field>
+                        </div>
+        </mat-card-content>
+      </mat-card>
+       <div class="row">
+        <div class="ml-auto">
+          <div class="col-md-12"  style="text-align: end;">        
+            <button mat-raised-button type="submit" class="submitbtn mx-3">
+              Submit
+            </button>
+            <button type="button" (click)="Cancel()" mat-raised-button class="cancelbtn">
+              Cancel
+            </button>        
+          </div>
+        </div>  
+      </div> 
+      
+    </form>
+    </div>
+
+    api_url->:
