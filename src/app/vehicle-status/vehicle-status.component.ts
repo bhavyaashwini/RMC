@@ -19,10 +19,10 @@ export interface Brand {
 
 export class VehicleStatusComponent  implements AfterViewInit{
   filterForm!:FormGroup;
-  displayedColumns = ['statuscode', 'colorcode', 'Action'];
+  displayedColumns = ['select','statuscode', 'colorcode', 'Action'];
   
   dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
-  selection = new SelectionModel<UsersData>(true, []);
+    selection = new SelectionModel<UsersData>(true, []);
   statusname: Brand[] = [
     { value: 'online', viewValue: 'online' },
     { value: 'offline', viewValue: 'offline' },
