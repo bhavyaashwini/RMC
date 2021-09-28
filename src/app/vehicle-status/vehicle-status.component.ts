@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import {SelectionModel} from '@angular/cdk/collections';
 export interface Brand {
   value: string;
   viewValue: string;
@@ -21,6 +22,7 @@ export class VehicleStatusComponent  implements AfterViewInit{
   displayedColumns = ['statuscode', 'colorcode', 'Action'];
   
   dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+  selection = new SelectionModel<UsersData>(true, []);
   statusname: Brand[] = [
     { value: 'online', viewValue: 'online' },
     { value: 'offline', viewValue: 'offline' },
@@ -33,6 +35,17 @@ export class VehicleStatusComponent  implements AfterViewInit{
   }
 
  
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
   addFilter(){
     this.filterForm = this._formBuilder.group({
       start_date:["", Validators.required],

@@ -1,21 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
 
-// @Component({
-//   selector: 'app-vehicle-category-add',
-//   templateUrl: './vehicle-category-add.component.html',
-//   styleUrls: ['./vehicle-category-add.component.css']
-// })
-// export class VehicleCategoryAddComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {SelectionModel} from '@angular/cdk/collections';
 export interface Subject {
   name: string;
 }
