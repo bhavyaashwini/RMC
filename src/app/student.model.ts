@@ -9,3 +9,11 @@ export class Student {
     id?: string;
    
  }
+  export class MessageTemplate {
+      name?: string;
+      template_id?:any;
+  }
+  export class User {
+    user_name?: string;
+    password?:any;
+  }

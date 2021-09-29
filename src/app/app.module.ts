@@ -53,6 +53,9 @@ import { BannerComponent } from './banner/banner.component';
 import { BannerAddComponent } from './banner-add/banner-add.component';
 import { MessageTemplateComponent } from './message-template/message-template.component';
 import { MessageTemplateAddComponent } from './message-template-add/message-template-add.component';
+import { Authentication } from './apitoken/authentication';
+import { DatePipe } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +112,9 @@ import { MessageTemplateAddComponent } from './message-template-add/message-temp
     MatCheckboxModule,
     
   ],
-  providers: [ApiService],
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: Authentication, multi: true },ApiService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

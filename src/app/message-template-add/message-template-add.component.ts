@@ -1,36 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-export interface Subject {
-  name: string;
-}
+import { MessagetemplateService } from '../services/messagetemplate.service'; 
 @Component({
   selector: 'app-message-template-add',
   templateUrl: './message-template-add.component.html',
   styleUrls: ['./message-template-add.component.css']
 })
 export class MessageTemplateAddComponent implements OnInit {
-  vendorForms!: FormGroup;
+  messageForms!: FormGroup;
 
 
-  constructor(public fb: FormBuilder, private router:Router) {}
+  constructor(public fb: FormBuilder, private router:Router, private dataservice: MessagetemplateService) {}
 
   ngOnInit(): void {
-    this.reactiveForm()
+    this.reactiveForm();
+    
   }
 
   /* Reactive form */
   reactiveForm() {
-    this.vendorForms = this.fb.group({
-      status_name: ['', [Validators.required]],
-      color_code: ['', [Validators.required]],
+    this.messageForms = this.fb.group({
+      name: ['', [Validators.required]],
+      template_id: ['', [Validators.required]],
       
     })
   }
 
   onSubmit(){
-    console.log(this.vendorForms.value);
-    this.router.navigate(["/messagetemplate"]);
+    console.log(this.messageForms.value);
+    
+    if (this.messageForms.valid) {
+      this.dataservice.createMessageTemplate(this.messageForms.value).subscribe(res => {
+         this.router.navigateByUrl('/messagetemplate');
+      });
+    }
   }
   Cancel(){
     this.router.navigate(["/messagetemplate"]);
