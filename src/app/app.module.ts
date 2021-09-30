@@ -56,6 +56,7 @@ import { MessageTemplateAddComponent } from './message-template-add/message-temp
 import { Authentication } from './apitoken/authentication';
 import { DatePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MessagetemplateeditComponent } from './messagetemplateedit/messagetemplateedit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +80,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     BannerComponent,
     BannerAddComponent,
     MessageTemplateComponent,
-    MessageTemplateAddComponent
+    MessageTemplateAddComponent,
+    MessagetemplateeditComponent
   ],
   imports: [
     AppRoutingModule,

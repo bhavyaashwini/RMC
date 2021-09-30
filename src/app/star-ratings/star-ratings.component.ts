@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import { StarratingService } from '../services/starrating.service';
+import {Starrating } from '../models/starrating';
 export interface Brand {
   value: string;
     name:string;
@@ -17,9 +19,11 @@ export interface Brand {
 })
 export class StarRatingsComponent  implements AfterViewInit{
   filterForm!:FormGroup;
+  dataSource!: any;
+  starList?: Starrating[];
   displayedColumns = ['name', 'value', 'Action'];
   
-  dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
   statusname: Brand[] = [
     { value: 'online', name: 'online' },
     { value: 'offline', name: 'offline' },
@@ -27,10 +31,36 @@ export class StarRatingsComponent  implements AfterViewInit{
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder) {
+  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder,
+    private starService: StarratingService) {
     this.addFilter();
   }
+  MessageListAll() {
+   
+    this.starService.starList({}).subscribe(res => {
+      if (res) {
+        console.log("res",res);
+        this.renderData(res);
+      }
+    });
+  }
+  renderData(data:any){
+    this.starList = data;
+    console.log(data, this.starList, 'data all');
+    console.log(data.data, 'data.')
+    this.dataSource = new MatTableDataSource<Starrating>(
+      
+  data.data.rows
+ 
 
+    );
+    this.dataSource = this.dataSource;
+    this.dataSource.paginator = this.paginator;
+  }
+  
+  ngOnInit() {
+    this.MessageListAll();
+  }
  
   addFilter(){
     this.filterForm = this._formBuilder.group({
@@ -55,8 +85,15 @@ export class StarRatingsComponent  implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  deleteTicket() {
-   
+ 
+  deleteRecord(id:any){
+    if(window.confirm('Are you sure you want to delete')) {
+      this.starService.starDelete({ id: id }).subscribe(result => {
+       console.log(result, 'deleteres')
+        this.MessageListAll();
+      })
+    }
+    
   }
   
 

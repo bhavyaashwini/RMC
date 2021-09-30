@@ -23,6 +23,7 @@ import { BannerComponent } from './banner/banner.component';
 import { BannerAddComponent } from './banner-add/banner-add.component';
 import { MessageTemplateAddComponent } from './message-template-add/message-template-add.component';
 import { MessageTemplateComponent } from './message-template/message-template.component';
+import { MessagetemplateeditComponent } from './messagetemplateedit/messagetemplateedit.component';
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: 'add' },
@@ -47,7 +48,8 @@ const routes: Routes = [
   { path:'add-star-ratings', component: StarRatingsAddComponent},
   { path:'add-star-option', component: OptionRatingsAddComponent},
   { path:'add-banner', component: BannerAddComponent},
-  { path:'add-message', component: MessageTemplateAddComponent} 
+  { path:'add-message', component: MessageTemplateAddComponent},
+  { path:'editmessage/:id', component: MessagetemplateeditComponent}
   
 ];
 

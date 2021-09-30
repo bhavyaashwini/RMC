@@ -97,15 +97,14 @@
               <mat-cell *matCellDef="let element"> 
                 <!-- <span class="mobile-label"> -->
                   
-                  <mat-icon class="mx-2 actionIcon">visibility</mat-icon>
+                  
                   <mat-icon class="mx-2 actionIcon">edit</mat-icon>
                   
-                  <mat-icon class="mx-2 actionIcon" (click)="deleteTicket()">delete</mat-icon>
+                  <mat-icon class="mx-2 actionIcon" (click)="deleteRecord(element.id)">delete</mat-icon>
                 <!-- </span> -->
                 
               </mat-cell>
             </ng-container>
-  
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>

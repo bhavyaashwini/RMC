@@ -1,25 +1,11 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-booking-cancel',
-//   templateUrl: './booking-cancel.component.html',
-//   styleUrls: ['./booking-cancel.component.css']
-// })
-// export class BookingCancelComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import { CancelbookingService } from '../services/cancelbooking.service';
+import { Cancelbooking } from '../models/cancelbooking';
 export interface Brand {
   value: string;
     name:string;
@@ -32,9 +18,11 @@ export interface Brand {
 })
 export class BookingCancelComponent  implements AfterViewInit{
   filterForm!:FormGroup;
+  dataSource!: any;
+  cancelList?: Cancelbooking[];
   displayedColumns = [ 'name', 'Action'];
   
-  dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
   statusname: Brand[] = [
     { value: 'online', name: 'online' },
     { value: 'offline', name: 'offline' },
@@ -42,10 +30,35 @@ export class BookingCancelComponent  implements AfterViewInit{
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder) {
+  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder,
+    private cancelService:CancelbookingService) {
     this.addFilter();
   }
+  bookingListAll() {
+   this.cancelService.cancelList({}).subscribe(res => {
+      if (res) {
+        console.log("res",res);
+        this.renderData(res);
+      }
+    });
+  }
+  renderData(data:any){
+    this.cancelList = data;
+    console.log(data, this.cancelList, 'data all');
+    console.log(data.data, 'data.')
+    this.dataSource = new MatTableDataSource<Cancelbooking>(
+      
+  data.data.rows
+ 
 
+    );
+    this.dataSource = this.dataSource;
+    this.dataSource.paginator = this.paginator;
+  }
+  
+  ngOnInit() {
+    this.bookingListAll();
+  }
  
   addFilter(){
     this.filterForm = this._formBuilder.group({
@@ -70,8 +83,14 @@ export class BookingCancelComponent  implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  deleteTicket() {
-   
+  deleteRecord(data:any) {
+    if(window.confirm('Are you sure you want to delete')) {
+      this.cancelService.cancelDelete({ id: data }).subscribe(result => {
+       console.log(result, 'deleteres')
+        this.bookingListAll();
+      })
+    }
+    
   }
   
 

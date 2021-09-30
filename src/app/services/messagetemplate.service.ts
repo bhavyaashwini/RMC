@@ -23,7 +23,13 @@ export class MessagetemplateService {
   }
  
 //Vendor Name List
-MessageList(data:any): Observable<Messagetemplate[]> {
+MessageList(data: any): Observable<Messagetemplate[]> {
   return this.http.post<Messagetemplate[]>(`${this.baseUrl + '/admin/message_template/all'}`, data);
+}
+DeleteMessage(data: any): Observable<Messagetemplate[]>{
+  return this.http.post<Messagetemplate[]>(`${this.baseUrl + '/admin/message_template/delete'}`, data);
+}
+updateMessage(data: any):Observable<Messagetemplate[]>{
+  return this.http.post<Messagetemplate[]>(`${this.baseUrl + '/admin/message_template/edit'}`, data)
 }
 }

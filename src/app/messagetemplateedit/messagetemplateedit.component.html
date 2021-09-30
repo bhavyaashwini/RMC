@@ -2,19 +2,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-          <h1>Booking Status</h1>
+          <h1>Message Template</h1>
         </div>    
       </div>
-      <form [formGroup]="cancelForms" novalidate (ngSubmit)="onSubmit()">
+      <form [formGroup]="messageForms" novalidate (ngSubmit)="onUpdate()">
       <mat-card class="mat-elevation-z2 mb-4">
         <mat-card-header>
-          <mat-card-title class="title">Basic Information</mat-card-title>
+          <mat-card-title class="title">Basic Message Template</mat-card-title>
         </mat-card-header>
         <mat-card-content>
        <div class="row">
                         <mat-form-field class="col-md-4"  appearance="outline">
                             <mat-label>Name</mat-label>
                             <input  maxlength="150"  #color_code matInput placeholder="Enter Name" formControlName="name" required>
+                            <mat-icon matSuffix>face</mat-icon>
+                           </mat-form-field>
+                           <mat-form-field class="col-md-4"  appearance="outline">
+                            <mat-label>Template id</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter Value" formControlName="template_id" required>
                             <mat-icon matSuffix>face</mat-icon>
                            </mat-form-field>
                           
@@ -27,12 +32,12 @@
             <button mat-raised-button type="submit" class="submitbtn mx-3">
               Submit
             </button>
-            <button type="button" (click)="Cancel()" mat-raised-button class="cancelbtn">
-              Cancel
-            </button>        
+          
           </div>
         </div>  
       </div> 
       
     </form>
     </div>
+
+

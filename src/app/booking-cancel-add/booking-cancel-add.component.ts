@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { CancelbookingService } from '../services/cancelbooking.service';
 export interface Subject {
   name: string;
 }
@@ -10,10 +11,11 @@ export interface Subject {
   styleUrls: ['./booking-cancel-add.component.css']
 })
 export class BookingCancelAddComponent implements OnInit {
-  vendorForms!: FormGroup;
+  cancelForms!: FormGroup;
 
 
-  constructor(public fb: FormBuilder, private router:Router) {}
+  constructor(public fb: FormBuilder, private router:Router,
+    private cancelService: CancelbookingService) {}
 
   ngOnInit(): void {
     this.reactiveForm()
@@ -21,16 +23,23 @@ export class BookingCancelAddComponent implements OnInit {
 
   /* Reactive form */
   reactiveForm() {
-    this.vendorForms = this.fb.group({
-      status_name: ['', [Validators.required]],
-      color_code: ['', [Validators.required]],
+    this.cancelForms = this.fb.group({
+      name: ['', [Validators.required]],
+      
       
     })
   }
 
+  
   onSubmit(){
-    console.log(this.vendorForms.value);
-    this.router.navigate(["/booking-cancel"]);
+    console.log(this.cancelForms.value);
+    
+    if (this.cancelForms.valid) {
+      this.cancelService.cancelCreate(this.cancelForms.value).subscribe(res => {
+        alert("cancel booking created successfully");
+         this.router.navigateByUrl('/booking-cancel');
+      });
+    }
   }
   Cancel(){
     this.router.navigate(["/booking-cancel"]);
