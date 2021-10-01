@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MessagetemplateService } from '../services/messagetemplate.service'; 
+import { first } from 'rxjs/operators';
+
 @Component({
   selector: 'app-messagetemplateedit',
   templateUrl: './messagetemplateedit.component.html',
@@ -9,57 +11,89 @@ import { MessagetemplateService } from '../services/messagetemplate.service';
 })
 export class MessagetemplateeditComponent implements OnInit {
   messageForms!: FormGroup;
+  name!: string;
   editMessageId!: string;
   id: any;
   isEdit = false;
-  constructor(  private formBuilder: FormBuilder, 
+  ngZone: any;
+
+  constructor(  private _formBuilder: FormBuilder, 
     private router: Router,
        private route: ActivatedRoute,
      private activatedRoute: ActivatedRoute,
      private messageService: MessagetemplateService
      ) {
-      // this.editMessageId = this.route.params['value'].subsId;
-      this.route.params.subscribe(params => {
-        this.id = params.id;  
-        console.log("params", this.id = params.id);  
-      });
+      this.id = this.route.snapshot.params['id'];
+      this.addNewRec();
+      // this.activatedRoute.params.subscribe(params => {
+      //   this.id = params.id;  
+      //   console.log("params", this.id = params.id);  
+      // });
+      
+      
 }
 
   ngOnInit(): void {
-    this.addNewRec();
+    
     this.allmessage();
-  // edit 
-   if (this. editMessageId!= null) {
-    this.isEdit = true;
-    this.messageService
-      .MessageList({ template_id: this.editMessageId })
-      .subscribe(res => {
-        console.log(res, 'getOne sus');
-        this.messageForms.patchValue(res);
-      });
+  
+  //  this.messageService
+  //       .updateMessage({ message_template_id: this.id })
+  //       .subscribe(res => {
+  //         console.log(res, 'getOne');
+  //         this.messageForms.setValue(res);
+  //         console.log("res",res);
+  //       });
+       
+          console.log("messageid", {message_template_id:this.id});
+          let msgData= {message_template_id: this.id}
+   this.messageService.MessageList(msgData)
+  
+  .pipe(first())
+  .subscribe(x =>{
+     this.messageForms.setValue({
+    name: x.data.name,
+    template_id: x.data.template_id
+    
+   })
+   console.log(x,'datax')
   }
-      }
-      addNewRec() {
-        this.messageForms = this.formBuilder.group({
+   );
+
+}
+
+
+  addNewRec() {
+        console.log("group", this.messageForms);
+        this.messageForms = this._formBuilder.group({
           name: ['', Validators.required],
           template_id: ['', Validators.required]
         });
       }
-       //Get all
+  
   allmessage() {
+   console.log("id", this.id);
     this.messageService.MessageList({}).subscribe(res => {
-      console.log(res, 'all');
-    });
+  console.log(res, 'getall');
+});
   }
-
   onUpdate(){
-    console.log(this.messageForms.value);
     
-    if (this.messageForms.valid) {
-      this.messageService.updateMessage(this.messageForms.value).subscribe(res => {
-        alert("Submited Successfully");
-         this.router.navigateByUrl('/messagetemplate');
-      });
-    }
+    if (window.confirm('Are you sure you want to update?')) {
+    this.messageService.updateMessage(this.route.snapshot.params.id, this.messageForms.value).subscribe((result)=>{
+      
+      console.log(result);
+ });
+ this.router.navigate(['/messagetemplate']);
+  }
+// const data = Object.assign(this.messageForms.value, {
+//   msgData: this.id
+// });
+// if (window.confirm('Are you sure you want to update?')) {
+// this.messageService.updateMessage(data).subscribe((result)=>{
+// console.log(result, 'result')
+//   })
+// console.log(data, 'data');
+// }
   }
 }

@@ -24,6 +24,14 @@ import { BannerAddComponent } from './banner-add/banner-add.component';
 import { MessageTemplateAddComponent } from './message-template-add/message-template-add.component';
 import { MessageTemplateComponent } from './message-template/message-template.component';
 import { MessagetemplateeditComponent } from './messagetemplateedit/messagetemplateedit.component';
+import { BannereditComponent } from './banneredit/banneredit.component';
+import { OptionratingeditComponent } from './optionratingedit/optionratingedit.component';
+import { StarratingeditComponent } from './starratingedit/starratingedit.component';
+import { BookingcanceleditComponent } from './bookingcanceledit/bookingcanceledit.component';
+import { BookingstatuseditComponent } from './bookingstatusedit/bookingstatusedit.component';
+import { UserroleeditComponent } from './userroleedit/userroleedit.component';
+import { VehiclecategoryeditComponent } from './vehiclecategoryedit/vehiclecategoryedit.component';
+import { VehiclestatuseditComponent } from './vehiclestatusedit/vehiclestatusedit.component';
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: 'add' },
@@ -49,7 +57,15 @@ const routes: Routes = [
   { path:'add-star-option', component: OptionRatingsAddComponent},
   { path:'add-banner', component: BannerAddComponent},
   { path:'add-message', component: MessageTemplateAddComponent},
-  { path:'editmessage/:id', component: MessagetemplateeditComponent}
+  { path:'editmessage/:id', component: MessagetemplateeditComponent},
+  { path:'editbanner/:id', component: BannereditComponent},
+  { path:'optionrating/:id', component: OptionratingeditComponent},
+  { path:'starrating/:id', component: StarratingeditComponent},
+  { path:'cancelbooking/:id', component: BookingcanceleditComponent},
+  { path:'bookingstatus/:id', component: BookingstatuseditComponent},
+  { path:'userrole/:id', component: UserroleeditComponent},
+  { path:'vehiclecategory/:id', component: VehiclecategoryeditComponent},
+  { path:'vehiclestatus/:id', component: VehiclestatuseditComponent}
   
 ];
 

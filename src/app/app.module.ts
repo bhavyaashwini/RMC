@@ -57,6 +57,14 @@ import { Authentication } from './apitoken/authentication';
 import { DatePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MessagetemplateeditComponent } from './messagetemplateedit/messagetemplateedit.component';
+import { OptionratingeditComponent } from './optionratingedit/optionratingedit.component';
+import { BannereditComponent } from './banneredit/banneredit.component';
+import { StarratingeditComponent } from './starratingedit/starratingedit.component';
+import { BookingcanceleditComponent } from './bookingcanceledit/bookingcanceledit.component';
+import { BookingstatuseditComponent } from './bookingstatusedit/bookingstatusedit.component';
+import { UserroleeditComponent } from './userroleedit/userroleedit.component';
+import { VehiclecategoryeditComponent } from './vehiclecategoryedit/vehiclecategoryedit.component';
+import { VehiclestatuseditComponent } from './vehiclestatusedit/vehiclestatusedit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +89,15 @@ import { MessagetemplateeditComponent } from './messagetemplateedit/messagetempl
     BannerAddComponent,
     MessageTemplateComponent,
     MessageTemplateAddComponent,
-    MessagetemplateeditComponent
+    MessagetemplateeditComponent,
+    OptionratingeditComponent,
+    BannereditComponent,
+    StarratingeditComponent,
+    BookingcanceleditComponent,
+    BookingstatuseditComponent,
+    UserroleeditComponent,
+    VehiclecategoryeditComponent,
+    VehiclestatuseditComponent
   ],
   imports: [
     AppRoutingModule,

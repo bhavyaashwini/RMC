@@ -28,6 +28,9 @@ export class MessageTemplateAddComponent implements OnInit {
 
   /* Reactive form */
   reactiveForm() {
+    console.log("messageForm", this.messageForms=this.fb.group({
+      name:['', ]
+    }));
     this.messageForms = this.fb.group({
       name: ['', [Validators.required]],
       template_id: ['', [Validators.required]],

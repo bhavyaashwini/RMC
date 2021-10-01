@@ -9,6 +9,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { MessagetemplateService } from '../services/messagetemplate.service';
 import { Messagetemplate } from '../models/messagetemplate';
 import Swal from 'sweetalert2';
+import { first } from 'rxjs/operators';
 export interface Brand {
   value: string;
   template_id:any;
@@ -96,9 +97,8 @@ export class MessageTemplateComponent  implements OnInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  // deleteRecord() {
-   
-  // }
+  editRecord(id:any){}
+  
   deleteRecord(id:any){
     // if(window.confirm('Are you sure')) {
     //   const data = this.dataSource.data;
@@ -132,7 +132,7 @@ export class MessageTemplateComponent  implements OnInit{
     });
   }
   
-  editRecord(){}
+
 
 }
 // export interface UsersData {

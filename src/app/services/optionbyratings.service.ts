@@ -22,13 +22,13 @@ export class OptionbyratingsService {
   }
  
 //Vendor Name List
-OptionratingList(data: any): Observable<Optionbyrating[]> {
-  return this.http.post<Optionbyrating[]>(`${this.baseUrl + '/admin/options_by_rating/all'}`, data);
+OptionratingList(data: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl + '/admin/options_by_rating/all'}`, data);
 }
 OptionratingDelete(data: any): Observable<Optionbyrating[]>{
-  return this.http.post<Optionbyrating[]>(`${this.baseUrl + '/admin/options_by_rating/delete'}`, data);
+  return this.http.put<Optionbyrating[]>(`${this.baseUrl + '/admin/options_by_rating/delete'}`, data);
 }
 OptionratingUpdate(data: any):Observable<Optionbyrating[]>{
-  return this.http.post<Optionbyrating[]>(`${this.baseUrl + '/admin/options_by_rating/edit'}`, data)
+  return this.http.put<Optionbyrating[]>(`${this.baseUrl + '/admin/options_by_rating/edit'}`, data)
 }
 }

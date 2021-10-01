@@ -64,12 +64,12 @@
           <div class="fil">
           <div class="col-md-4 col-md-4">&nbsp;
           </div>
-          <div class="col-md-10 col-sm-12 col-12 ml-auto">
+          <!-- <div class="col-md-10 col-sm-12 col-12 ml-auto">
             <mat-form-field class="float-right">
               <mat-label>Filter</mat-label>
               <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
             </mat-form-field>
-          </div>
+          </div> -->
         </div>
         </div>
     
@@ -98,7 +98,7 @@
                 <!-- <span class="mobile-label"> -->
                   
                   
-                  <mat-icon class="mx-2 actionIcon">edit</mat-icon>
+                  <mat-icon class="mx-2 actionIcon" [routerLink]="['/cancelbooking', element.id]">edit</mat-icon>
                   
                   <mat-icon class="mx-2 actionIcon" (click)="deleteRecord(element.id)">delete</mat-icon>
                 <!-- </span> -->

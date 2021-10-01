@@ -5,7 +5,7 @@
           <h1>Booking Status</h1>
         </div>    
       </div>
-      <form [formGroup]="vendorForms" novalidate (ngSubmit)="onSubmit()">
+      <form [formGroup]="statusForms" novalidate (ngSubmit)="onSubmit()">
       <mat-card class="mat-elevation-z2 mb-4">
         <mat-card-header>
           <mat-card-title class="title">Basic Infromation</mat-card-title>
@@ -13,13 +13,13 @@
         <mat-card-content>
        <div class="row">
                         <mat-form-field class="col-md-4"  appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input  maxlength="150"  #color_code matInput placeholder="Enter Name" formControlName="color_code" required>
+                            <mat-label>Role Name</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter Name" formControlName="role_name" required>
                             <mat-icon matSuffix>face</mat-icon>
                            </mat-form-field>
                            <mat-form-field class="col-md-4"  appearance="outline">
-                            <mat-label>Color code</mat-label>
-                            <input  maxlength="150"  #color_code matInput placeholder="Enter color code" formControlName="color_code" required>
+                            <mat-label>Name</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter color code" formControlName="name" required>
                             <mat-icon matSuffix>face</mat-icon>
                            </mat-form-field>
                         </div>

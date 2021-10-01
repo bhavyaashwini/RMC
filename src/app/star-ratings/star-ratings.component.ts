@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { StarratingService } from '../services/starrating.service';
 import {Starrating } from '../models/starrating';
+import Swal from 'sweetalert2';
 export interface Brand {
   value: string;
     name:string;
@@ -86,18 +87,37 @@ export class StarRatingsComponent  implements AfterViewInit{
     
   }
  
+  
   deleteRecord(id:any){
-    if(window.confirm('Are you sure you want to delete')) {
-      this.starService.starDelete({ id: id }).subscribe(result => {
-       console.log(result, 'deleteres')
-        this.MessageListAll();
-      })
-    }
-    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.
+        starService.starDelete({star_rating_id: id })
+          .subscribe(
+            res => {
+              console.log(res, 'deleteResp');
+              Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+              this.MessageListAll();
+            },
+            error => {
+             
+            }
+          );
+      }
+    });
   }
+}
   
 
-}
+
 export interface UsersData {
  
   name:any;

@@ -23,13 +23,13 @@ export class CancelbookingService {
   }
  
 //Vendor Name List
-cancelList(data: any): Observable<Cancelbooking[]> {
-  return this.http.post<Cancelbooking[]>(`${this.baseUrl + '/admin/cancel_booking/all'}`, data);
+cancelList(data: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl + '/admin/cancel_booking/all'}`, data);
 }
 cancelDelete(data: any): Observable<Cancelbooking[]>{
-  return this.http.post<Cancelbooking[]>(`${this.baseUrl + '/admin/cancel_booking/delete'}`, data);
+  return this.http.put<Cancelbooking[]>(`${this.baseUrl + '/admin/cancel_booking/delete'}`, data);
 }
 cancelUpdate(data: any):Observable<Cancelbooking[]>{
-  return this.http.post<Cancelbooking[]>(`${this.baseUrl + '/admin/cancel_booking/edit'}`, data)
+  return this.http.put<Cancelbooking[]>(`${this.baseUrl + '/admin/cancel_booking/edit'}`, data)
 }
 }

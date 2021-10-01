@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { CancelbookingService } from '../services/cancelbooking.service';
 import { Cancelbooking } from '../models/cancelbooking';
+import Swal from 'sweetalert2';
 export interface Brand {
   value: string;
     name:string;
@@ -83,16 +84,41 @@ export class BookingCancelComponent  implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  deleteRecord(data:any) {
-    if(window.confirm('Are you sure you want to delete')) {
-      this.cancelService.cancelDelete({ id: data }).subscribe(result => {
-       console.log(result, 'deleteres')
-        this.bookingListAll();
-      })
-    }
+  // deleteRecord(data:any) {
+  //   if(window.confirm('Are you sure you want to delete')) {
+  //     this.cancelService.cancelDelete({ id: data }).subscribe(result => {
+  //      console.log(result, 'deleteres')
+  //       this.bookingListAll();
+  //     })
+  //   }
     
+  // }
+  deleteRecord(id:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.
+        cancelService.cancelDelete({cancel_booking_id: id })
+          .subscribe(
+            res => {
+              console.log(res, 'deleteResp');
+              Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+              this.bookingListAll();
+            },
+            error => {
+             
+            }
+          );
+      }
+    });
   }
-  
 
 }
 export interface UsersData {

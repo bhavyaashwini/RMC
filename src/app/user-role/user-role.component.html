@@ -64,24 +64,12 @@
           <div class="fil">
           <div class="col-md-4 col-md-4">&nbsp;
           </div>
-          <div class="col-md-10 col-sm-12 col-12 ml-auto">
-            <mat-form-field class="float-right">
-              <mat-label>Filter</mat-label>
-              <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
-            </mat-form-field>
-          </div>
+         
         </div>
         </div>
-    
-     
-        <div class="example-container">
+    <div class="example-container">
           <mat-table #table [dataSource]="dataSource">
-        
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-        
-            <!-- Position Column -->
-            <ng-container matColumnDef="rolename">
+         <ng-container matColumnDef="rolename">
               <mat-header-cell *matHeaderCellDef> Role Name </mat-header-cell>
               <mat-cell *matCellDef="let element"> 
                 <span class="mobile-label"></span>

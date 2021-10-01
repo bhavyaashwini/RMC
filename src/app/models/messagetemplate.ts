@@ -1,7 +1,8 @@
 export class Messagetemplate {
-    name?:string;
+    name?:any;
     template_id?: any;
     id?:any;
     is_active?:boolean;
-    created_at?:Date;
+    message_template_id?: any;
+    message_template:any;
 }
