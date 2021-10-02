@@ -22,16 +22,13 @@
           End Date is required.
         </mat-error>                        
      </mat-form-field>
-     <div class="col-md-4 col-12" >
-      <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let status of statusname" [value]="status.value">
-            {{ status.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      </div>
+     <mat-form-field class="col-md-4 mb-2 col-12" appearance="outline">
+      <mat-label>Name</mat-label>  
+         
+      <input matInput  placeholder="Enter Name" name="name" (keyup)="applyFilter($event)" id="mat-input-0">
+      
+      <mat-icon style="float: right; margin-top: -27px;">search</mat-icon>
+    </mat-form-field>
       </div>
     </form>    
   </mat-card-content>

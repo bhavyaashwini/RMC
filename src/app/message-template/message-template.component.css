@@ -52,3 +52,7 @@ mat-sidenav-content.mat-drawer-content.mat-sidenav-content {
 .mat-checkbox {
     color: green;
   }
+  mat-icon.mat-icon.notranslate.ng-tns-c140-3.material-icons.mat-icon-no-color {
+    float: right;
+    margin-top: -22px;
+}

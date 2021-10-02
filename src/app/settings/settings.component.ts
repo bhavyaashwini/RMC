@@ -5,50 +5,41 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import {SelectionModel} from '@angular/cdk/collections';
-import { MessagetemplateService } from '../services/messagetemplate.service';
-import { Messagetemplate } from '../models/messagetemplate';
+import { StarratingService } from '../services/starrating.service';
+import {Starrating } from '../models/starrating';
 import Swal from 'sweetalert2';
-import { first } from 'rxjs/operators';
 export interface Brand {
   value: string;
-  template_id:any;
+    name:string;
 }
 
 
 @Component({
-  selector: 'app-message-template',
-  templateUrl: './message-template.component.html',
-  styleUrls: ['./message-template.component.css']
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
 })
-export class MessageTemplateComponent  implements OnInit{
+export class SettingsComponent implements OnInit{
   filterForm!:FormGroup;
   dataSource!: any;
-  messageList?: Messagetemplate[];
-  displayedColumns = [ 'name', 'templateid', 'Action'];
+  starList?: Starrating[];
+  displayedColumns = ['minversion', 'ostype','category','currentversion', 'Action'];
   
- 
-  selection = new SelectionModel<Messagetemplate>(true, []);
-  filteredBanks: any;
+  // dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
   statusname: Brand[] = [
-    { value: 'online', template_id: '1' },
-   ];
+    { value: 'ios', name: 'ios' },
+    { value: 'android', name: 'android' },
+   
+  ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder,
-     private messageTemplate: MessagetemplateService) {
+    private starService: StarratingService) {
     this.addFilter();
   }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+  MessageListAll() {
    
-   MessageListAll() {
-   
-    this.messageTemplate.MessageList({}).subscribe(res => {
+    this.starService.starList({}).subscribe(res => {
       if (res) {
         console.log("res",res);
         this.renderData(res);
@@ -56,10 +47,10 @@ export class MessageTemplateComponent  implements OnInit{
     });
   }
   renderData(data:any){
-    this.messageList = data;
-    console.log(data, this.messageList, 'data all');
+    this.starList = data;
+    console.log(data, this.starList, 'data all');
     console.log(data.data, 'data.')
-    this.dataSource = new MatTableDataSource<Messagetemplate>(
+    this.dataSource = new MatTableDataSource<Starrating>(
       
   data.data.rows
  
@@ -70,24 +61,22 @@ export class MessageTemplateComponent  implements OnInit{
   }
   
   ngOnInit() {
-    this.MessageListAll();
+    // this.MessageListAll();
   }
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach((row: Messagetemplate) => this.selection.select(row));
-  }
+ 
   addFilter(){
     this.filterForm = this._formBuilder.group({
       start_date:["", Validators.required],
       end_date:["", Validators.required]
     })
   }
-  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource = this.dataSource;
+  }
 
   add(){
-    this.router.navigate(["/add-message"])
+    this.router.navigate(["/add-star-ratings"])
   }
   filter(){
 
@@ -98,15 +87,9 @@ export class MessageTemplateComponent  implements OnInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  editRecord(id:any){}
+ 
   
   deleteRecord(id:any){
-    // if(window.confirm('Are you sure')) {
-    //   const data = this.dataSource.data;
-    //   data.splice((this.paginator.pageIndex * this.paginator.pageSize) + id, 1);
-    //   this.dataSource.data = data;
-    //   this.messageTemplate.DeleteMessage(id).subscribe()
-    // }
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -118,7 +101,7 @@ export class MessageTemplateComponent  implements OnInit{
     }).then(result => {
       if (result.isConfirmed) {
         this.
-        messageTemplate.DeleteMessage({message_template_id: id })
+        starService.starDelete({star_rating_id: id })
           .subscribe(
             res => {
               console.log(res, 'deleteResp');
@@ -132,22 +115,20 @@ export class MessageTemplateComponent  implements OnInit{
       }
     });
   }
-  
-
-
 }
-// export interface UsersData {
-//   template_id:any;
-//  name:any;
-
-// }
-
-// const ELEMENT_DATA: UsersData[] = [
-//   {name:'hello',template_id: '123'},
-//   {name:'hello',template_id: '123'},
-//   {name:'hello',template_id: '123'},
   
-// ];
 
 
+export interface UsersData {
+ 
+  name:any;
+  value:any
+}
+
+const ELEMENT_DATA: UsersData[] = [
+  {name: 'hello', value: 23456},
+ 
+  
+  
+];
 

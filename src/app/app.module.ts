@@ -65,6 +65,10 @@ import { BookingstatuseditComponent } from './bookingstatusedit/bookingstatusedi
 import { UserroleeditComponent } from './userroleedit/userroleedit.component';
 import { VehiclecategoryeditComponent } from './vehiclecategoryedit/vehiclecategoryedit.component';
 import { VehiclestatuseditComponent } from './vehiclestatusedit/vehiclestatusedit.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SettingsaddComponent } from './settingsadd/settingsadd.component';
+import { SettingseditComponent } from './settingsedit/settingsedit.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +101,10 @@ import { VehiclestatuseditComponent } from './vehiclestatusedit/vehiclestatusedi
     BookingstatuseditComponent,
     UserroleeditComponent,
     VehiclecategoryeditComponent,
-    VehiclestatuseditComponent
+    VehiclestatuseditComponent,
+    SettingsComponent,
+    SettingsaddComponent,
+    SettingseditComponent
   ],
   imports: [
     AppRoutingModule,
@@ -128,6 +135,7 @@ import { VehiclestatuseditComponent } from './vehiclestatusedit/vehiclestatusedi
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    NgxMatSelectSearchModule
     
   ],
   providers: [

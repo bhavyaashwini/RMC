@@ -23,6 +23,7 @@
     "bootstrap": "^5.1.1",
     "bootstrap-jquery": "^3.3.2",
     "jquery": "^3.6.0",
+    "ngx-mat-select-search": "^3.3.0",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.1.7",
     "tslib": "^2.3.0",

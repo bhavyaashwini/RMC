@@ -4,10 +4,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import {SelectionModel} from '@angular/cdk/collections';
+
+import Swal from 'sweetalert2';
+import { first } from 'rxjs/operators';
+import { Banner } from '../models/banner';
+import { BannerService } from '../services/banner.service';
 export interface Brand {
   value: string;
-    name:string;
+  template_id:any;
 }
+
 
 
 @Component({
@@ -15,33 +22,70 @@ export interface Brand {
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.css']
 })
-export class BannerComponent  implements AfterViewInit{
+export class BannerComponent  implements OnInit{
   filterForm!:FormGroup;
-  displayedColumns = ['name', 'bannericon', 'Action'];
+  dataSource!: any;
+  messageList?: Banner[];
+  displayedColumns = [ 'name',  'Action'];
   
-  dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+ 
+  selection = new SelectionModel<Banner>(true, []);
+  filteredBanks: any;
   statusname: Brand[] = [
-    { value: 'online', name: 'online' },
-    { value: 'offline', name: 'offline' },
-   
-  ];
+    { value: 'online', template_id: '1' },
+   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder) {
+  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder,
+     private messageTemplate: BannerService) {
     this.addFilter();
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+   
+   MessageListAll() {
+   
+    this.messageTemplate.MessageList({}).subscribe(res => {
+      if (res) {
+        console.log("res",res);
+        this.renderData(res);
+      }
+    });
+  }
+  renderData(data:any){
+    this.messageList = data;
+    console.log(data, this.messageList, 'data all');
+    console.log(data.data, 'data.')
+    this.dataSource = new MatTableDataSource<Banner>(
+      
+  data.data.rows
  
+
+    );
+    this.dataSource = this.dataSource;
+    this.dataSource.paginator = this.paginator;
+  }
+  
+  ngOnInit() {
+    this.MessageListAll();
+  }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach((row: Banner) => this.selection.select(row));
+  }
   addFilter(){
     this.filterForm = this._formBuilder.group({
       start_date:["", Validators.required],
       end_date:["", Validators.required]
     })
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource = this.dataSource;
-  }
+  
 
   add(){
     this.router.navigate(["/add-banner"])
@@ -55,21 +99,46 @@ export class BannerComponent  implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  deleteTicket() {
-   
+  editRecord(id:any){}
+  
+  deleteRecord(id:any){
+    // if(window.confirm('Are you sure')) {
+    //   const data = this.dataSource.data;
+    //   data.splice((this.paginator.pageIndex * this.paginator.pageSize) + id, 1);
+    //   this.dataSource.data = data;
+    //   this.messageTemplate.DeleteMessage(id).subscribe()
+    // }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.
+        messageTemplate.DeleteMessage({message_template_id: id })
+          .subscribe(
+            res => {
+              console.log(res, 'deleteResp');
+              Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+              this.MessageListAll();
+            },
+            error => {
+             
+            }
+          );
+      }
+    });
   }
   
 
-}
-export interface UsersData {
- 
-  name:any;
-  banner_url:any;
+
 }
 
-const ELEMENT_DATA: UsersData[] = [
-  {name: 'hello', banner_url: 23456},
- 
-  
-  
-];
+
+
+
+

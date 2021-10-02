@@ -22,13 +22,17 @@
             End Date is required.
           </mat-error>                        
        </mat-form-field>
-       <mat-form-field class="col-md-4 mb-2 col-12" appearance="outline">
-        <mat-label>Name</mat-label>  
-           
-        <input matInput  placeholder="Enter Name" name="name" (keyup)="applyFilter($event)" id="mat-input-0">
-        
-        <mat-icon style="float: right; margin-top: -27px;">search</mat-icon>
-      </mat-form-field>
+        <div class="col-md-4 col-12" >
+          <mat-form-field appearance="outline">
+            <mat-label>Filter Os</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let status of statusname" [value]="status.value">
+                {{ status.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- <button type="submit" class="btn filterButton" mat-raised-button>Filter</button> -->
+        </div>
         </div>
       </form>    
     </mat-card-content>
@@ -46,7 +50,7 @@
   </mat-card>
   <mat-card class="mat-elevation-z2">
       <mat-card-header>
-        <mat-card-title class="title">Booking Cancel</mat-card-title>
+        <mat-card-title class="title">Settings </mat-card-title>
         <span class="spacer">&nbsp;</span>
         <div class="">
         <button mat-icon-button (click)="add()" class="addBtn">
@@ -76,14 +80,39 @@
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
         
-             <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <!-- Position Column -->
+            <ng-container matColumnDef="minversion">
+              <mat-header-cell *matHeaderCellDef>MinVersion  </mat-header-cell>
               <mat-cell *matCellDef="let element"> 
                 <span class="mobile-label"></span>
-                {{element.name}} 
+                {{element.minVersion }} 
               </mat-cell>
             </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="ostype">
+              <mat-header-cell *matHeaderCellDef>osType</mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                <span class="mobile-label"></span>
+                {{element.osType}} 
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+                <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                  <span class="mobile-label"></span>
+                  {{element.category}} 
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="currentversion">
+                <mat-header-cell *matHeaderCellDef>Current Version</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                  <span class="mobile-label"></span>
+                  {{element.currentversion}} 
+                </mat-cell>
+              </ng-container>
         
            
         
@@ -94,13 +123,14 @@
                 <!-- <span class="mobile-label"> -->
                   
                   
-                  <mat-icon class="mx-2 actionIcon" [routerLink]="['/cancelbooking', element.id]">edit</mat-icon>
+                  <mat-icon class="mx-2 actionIcon" [routerLink]="['/starrating', element.id]">edit</mat-icon>
                   
                   <mat-icon class="mx-2 actionIcon" (click)="deleteRecord(element.id)">delete</mat-icon>
                 <!-- </span> -->
                 
               </mat-cell>
             </ng-container>
+  
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>

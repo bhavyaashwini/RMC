@@ -5,6 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import {SelectionModel} from '@angular/cdk/collections';
+import { Vehiclestatus } from '../models/vehiclestatus';
+import { VehiclestatusService } from '../services/vehiclestatus.service';
+import Swal from 'sweetalert2';
+
 export interface Brand {
   value: string;
   viewValue: string;
@@ -19,32 +23,46 @@ export interface Brand {
 
 export class VehicleStatusComponent  implements AfterViewInit{
   filterForm!:FormGroup;
-  displayedColumns = ['statuscode', 'colorcode', 'Action'];
+  displayedColumns = ['statuscode', 'name', 'Action'];
+  dataSource!: any;
+  optionList?: Vehiclestatus[];
+ 
   
-  dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
-    selection = new SelectionModel<UsersData>(true, []);
-  statusname: Brand[] = [
-    { value: 'online', viewValue: 'online' },
-    { value: 'offline', viewValue: 'offline' },
-   
-  ];
+  // dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder) {
+  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder,
+    private optionService: VehiclestatusService,
+   ) {
     this.addFilter();
   }
 
- 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+  optionListAll() {
+   
+    this.optionService.cancelList({}).subscribe(res => {
+      if (res) {
+        console.log("res",res);
+        this.renderData(res);
+      }
+    });
   }
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+  renderData(data:any){
+    this.optionList = data;
+    console.log(data, this.optionList, 'data all');
+    console.log(data.data, 'data.')
+    this.dataSource = new MatTableDataSource<Vehiclestatus>(
+      
+  data.data.rows
+ 
+
+    );
+    this.dataSource = this.dataSource;
+    this.dataSource.paginator = this.paginator;
+  }
+  
+  ngOnInit() {
+    this.optionListAll();
   }
   addFilter(){
     this.filterForm = this._formBuilder.group({
@@ -69,29 +87,35 @@ export class VehicleStatusComponent  implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
     
   }
-  deleteTicket() {
-   
+  deleteRecord(id:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.
+        optionService.cancelDelete({options_by_rating_id: id })
+          .subscribe(
+            res => {
+              console.log(res, 'deleteResp');
+              Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+              this.optionListAll();
+            },
+            error => {
+             
+            }
+          );
+      }
+    });
   }
   
 
 }
-export interface UsersData {
-  name: any;
-  status_name: string;
-}
 
-const ELEMENT_DATA: UsersData[] = [
-  {status_name: 'online', name: 23456},
-  {status_name: 'online', name: '123345'},
-  {status_name: 'online', name: '123345'},
-  {status_name: 'online', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  {status_name: 'offline', name: '123345'},
-  
-  
-];
+
+

@@ -32,6 +32,7 @@ import { BookingstatuseditComponent } from './bookingstatusedit/bookingstatusedi
 import { UserroleeditComponent } from './userroleedit/userroleedit.component';
 import { VehiclecategoryeditComponent } from './vehiclecategoryedit/vehiclecategoryedit.component';
 import { VehiclestatuseditComponent } from './vehiclestatusedit/vehiclestatusedit.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: 'add' },
@@ -65,7 +66,8 @@ const routes: Routes = [
   { path:'bookingstatus/:id', component: BookingstatuseditComponent},
   { path:'userrole/:id', component: UserroleeditComponent},
   { path:'vehiclecategory/:id', component: VehiclecategoryeditComponent},
-  { path:'vehiclestatus/:id', component: VehiclestatuseditComponent}
+  { path:'vehiclestatus/:id', component: VehiclestatuseditComponent},
+  { path:'settings',component: SettingsComponent}
   
 ];
 
