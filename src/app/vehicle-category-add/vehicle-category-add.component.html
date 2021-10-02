@@ -13,84 +13,108 @@
         <div class="row">
           <mat-form-field class="col-md-4"  appearance="outline">
             <mat-label>Name</mat-label>
-            <input maxlength="250" #status_name matInput placeholder="Enter  Name" formControlName="status_name" required>
+            <input maxlength="250" #status_name matInput placeholder="Enter  Name" formControlName="name" required>
             <mat-icon matSuffix>business</mat-icon>
            </mat-form-field> 
     
           <mat-form-field class="col-md-4"  appearance="outline">
             <mat-label>Charge per km</mat-label>
-            <input  maxlength="150"  #color_code matInput placeholder="Enter Charge per km" formControlName="color_code" required>
+            <input  maxlength="150"  #color_code matInput placeholder="Enter Charge per km" formControlName="chareg_per_km" required>
             <mat-icon matSuffix>face</mat-icon>
            </mat-form-field>
 
            <mat-form-field class="col-md-4"  appearance="outline">
             <mat-label>Charge per min</mat-label>
             <input  maxlength="150"  #color_code matInput placeholder="Enter 
-            Charge per min" formControlName="color_code" required>
+            Charge per min" formControlName="charge_per_min" required>
             <mat-icon matSuffix>face</mat-icon>
            </mat-form-field>
           </div>
           <div class="row">
             <mat-form-field class="col-md-4"  appearance="outline">
-              <mat-label>Status Name</mat-label>
-              <input maxlength="250" #status_name matInput placeholder="Enter Status Name" formControlName="status_name" required>
+              <mat-label>Future Date</mat-label>
+              <input maxlength="250" #status_name matInput placeholder="Enter Future Date" formControlName="future_date" required>
               <mat-icon matSuffix>business</mat-icon>
              </mat-form-field> 
       
             <mat-form-field class="col-md-4"  appearance="outline">
-              <mat-label>Color Code</mat-label>
-              <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
+              <mat-label>Gap Mint</mat-label>
+              <input  maxlength="150"  #color_code matInput placeholder="Enter Gap Mint" formControlName="gap_mint" required>
               <mat-icon matSuffix>face</mat-icon>
              </mat-form-field>
   
              <mat-form-field class="col-md-4"  appearance="outline">
-              <mat-label>Color Code</mat-label>
-              <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
-              <mat-icon matSuffix>face</mat-icon>
+             
+              <!-- <input  maxlength="150"  #color_code matInput placeholder="Enter Gap Mint" formControlName="icon_url" required>
+              <mat-icon matSuffix>face</mat-icon> -->
+              <div>
+               <input
+               type="file"
+                  id="fileInput"
+                  name="fileInput"
+                  accept="image/*" multiple 
+                  formControlName="icon_url"
+                  (change)="selectFiles($event)"
+                />
+                <input matInput  />
+            
+                <!-- <button
+                  mat-flat-button
+                  color="primary"
+                
+                  (click)="uploadFiles()"
+                >
+                  Upload
+                </button> -->
+              
+              </div>
              </mat-form-field>
             </div>
             <div class="row">
                 <mat-form-field class="col-md-4"  appearance="outline">
-                  <mat-label>Status Name</mat-label>
-                  <input maxlength="250" #status_name matInput placeholder="Enter Status Name" formControlName="status_name" required>
+                  <mat-label>
+                    Interval Mint</mat-label>
+                  <input maxlength="250" #status_name matInput placeholder="Enter Interval Mint" formControlName="interval_mint" required>
                   <mat-icon matSuffix>business</mat-icon>
                  </mat-form-field> 
           
                 <mat-form-field class="col-md-4"  appearance="outline">
-                  <mat-label>Color Code</mat-label>
-                  <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
+                  <mat-label>Limit Km</mat-label>
+                  <input  maxlength="150"  #color_code matInput placeholder="Enter Limit Km" formControlName="limit_km" required>
                   <mat-icon matSuffix>face</mat-icon>
                  </mat-form-field>
       
                  <mat-form-field class="col-md-4"  appearance="outline">
-                  <mat-label>Color Code</mat-label>
-                  <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
+                  <mat-label>Mint Charge</mat-label>
+                  <input  maxlength="150"  #color_code matInput placeholder="Enter Mint Charge" formControlName="mint_charge" required>
                   <mat-icon matSuffix>face</mat-icon>
                  </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field class="col-md-4"  appearance="outline">
-                      <mat-label>Status Name</mat-label>
-                      <input maxlength="250" #status_name matInput placeholder="Enter Status Name" formControlName="status_name" required>
+                      <mat-label>Block Mins</mat-label>
+                      <input maxlength="250" #status_name matInput placeholder="Enter Block Mins" formControlName="block_mins" required>
                       <mat-icon matSuffix>business</mat-icon>
                      </mat-form-field> 
               
                     <mat-form-field class="col-md-4"  appearance="outline">
-                      <mat-label>Color Code</mat-label>
-                      <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
+                      <mat-label>
+                        Batching Limitkm</mat-label>
+                      <input  maxlength="150"  #color_code matInput placeholder="Enter 
+                      Batching Limitkm" formControlName="batching_limitkm" required>
                       <mat-icon matSuffix>face</mat-icon>
                      </mat-form-field>
           
                      <mat-form-field class="col-md-4"  appearance="outline">
-                      <mat-label>Color Code</mat-label>
-                      <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
+                      <mat-label>Accepted Second</mat-label>
+                      <input  maxlength="150"  #color_code matInput placeholder="Enter Accepted Second" formControlName="accepted_second" required>
                       <mat-icon matSuffix>face</mat-icon>
                      </mat-form-field>
                     </div>
                     <div class="row">
                         <mat-form-field class="col-md-4"  appearance="outline">
-                            <mat-label>Color Code</mat-label>
-                            <input  maxlength="150"  #color_code matInput placeholder="Enter Color Code" formControlName="color_code" required>
+                            <mat-label>Booking Gap</mat-label>
+                            <input  maxlength="150"  #color_code matInput placeholder="Enter Booking Gap" formControlName="booking_gap" required>
                             <mat-icon matSuffix>face</mat-icon>
                            </mat-form-field>
                         </div>

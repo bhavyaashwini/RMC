@@ -62,7 +62,7 @@ export class BannerComponent  implements OnInit{
     console.log(data.data, 'data.')
     this.dataSource = new MatTableDataSource<Banner>(
       
-  data.data.rows
+  data.data
  
 
     );
@@ -85,7 +85,7 @@ export class BannerComponent  implements OnInit{
       end_date:["", Validators.required]
     })
   }
-  
+  edit(id:any){}
 
   add(){
     this.router.navigate(["/add-banner"])
@@ -119,7 +119,7 @@ export class BannerComponent  implements OnInit{
     }).then(result => {
       if (result.isConfirmed) {
         this.
-        messageTemplate.DeleteMessage({message_template_id: id })
+        messageTemplate.DeleteMessage({banner_id: id })
           .subscribe(
             res => {
               console.log(res, 'deleteResp');

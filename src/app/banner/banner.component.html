@@ -102,8 +102,8 @@
               <mat-cell *matCellDef="let element"> 
                 <!-- <span class="mobile-label"> -->
                   
-                  <mat-icon class="mx-2 actionIcon">visibility</mat-icon>
-                  <mat-icon class="mx-2 actionIcon">edit</mat-icon>
+                  <!-- <mat-icon class="mx-2 actionIcon">visibility</mat-icon> -->
+                  <mat-icon class="mx-2 actionIcon"  [routerLink]="['/editbanner', element.id]">edit</mat-icon>
                   
                   <mat-icon class="mx-2 actionIcon" (click)="deleteRecord(element.id)">delete</mat-icon>
                 <!-- </span> -->

@@ -16,6 +16,7 @@ export class MessagetemplateeditComponent implements OnInit {
   id: any;
   isEdit = false;
   ngZone: any;
+  actRoute: any;
 
   constructor(  private _formBuilder: FormBuilder, 
     private router: Router,
@@ -79,21 +80,24 @@ export class MessagetemplateeditComponent implements OnInit {
   }
   onUpdate(){
     
-    if (window.confirm('Are you sure you want to update?')) {
-    this.messageService.updateMessage(this.route.snapshot.params.id, this.messageForms.value).subscribe((result)=>{
+    const data = Object.assign(this.messageForms.value, {
+      message_template_id: this.editMessageId
+    });
+    console.log(this.editMessageId, 'data');
+    this.messageService.updateMessage(data).subscribe(
+      (res) => {
+       this.router.navigateByUrl('/messagetemplate')
+      }
+
+    )
+ 
+//     if (window.confirm('Are you sure you want to update?')) {
+//     this.messageService.updateMessage(this.route.snapshot.params.id, this.messageForms.value).subscribe((result)=>{
       
-      console.log(result);
- });
- this.router.navigate(['/messagetemplate']);
-  }
-// const data = Object.assign(this.messageForms.value, {
-//   msgData: this.id
-// });
-// if (window.confirm('Are you sure you want to update?')) {
-// this.messageService.updateMessage(data).subscribe((result)=>{
-// console.log(result, 'result')
-//   })
-// console.log(data, 'data');
-// }
-  }
+//       console.log(result);
+//  });
+//  this.router.navigate(['/messagetemplate']);
+//   }
+
+    }
 }

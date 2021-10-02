@@ -29,7 +29,7 @@ MessageList(data: any): Observable<any> {
 DeleteMessage(data: any): Observable<Messagetemplate[]>{
   return this.http.post<Messagetemplate[]>(`${this.baseUrl + '/admin/message_template/delete'}`, data);
 }
-updateMessage(data: any, message_template_id: any):Observable<Messagetemplate[]>{
+updateMessage(data: any):Observable<Messagetemplate[]>{
   return this.http.post<Messagetemplate[]>(`${this.baseUrl + '/admin/message_template/edit'}`, data)
 }
 }

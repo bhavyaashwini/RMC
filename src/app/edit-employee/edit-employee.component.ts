@@ -89,7 +89,7 @@ updateBookForm() {
     console.log(this.studentForm.value)
     var id = this.actRoute.snapshot.paramMap.get('id');
     if (window.confirm('Are you sure you want to update?')) {
-      this.studentApi.updateStudent(id, this.studentForm.value).subscribe( res => {
+      this.studentApi.updateStudent(this.actRoute.snapshot.params.id, this.myNgForm.value).subscribe( res => {
         this.ngZone.run(() => this.router.navigateByUrl('/list'))
       });
     }

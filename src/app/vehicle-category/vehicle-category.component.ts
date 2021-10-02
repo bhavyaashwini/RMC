@@ -4,6 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import { Vehicelcategory } from '../models/vehicelcategory';
+import { VehiclecategoryService } from '../services/vehiclecategory.service';
+import Swal from 'sweetalert2';
 export interface Brand {
   value: string;
   viewValue: string;
@@ -17,24 +20,51 @@ export class VehicleCategoryComponent  implements AfterViewInit {
   filterForm!:FormGroup;
   displayedColumns = ['statuscode', 'colorcode','chargepermin','futuredate','gapmint', 'icon','intervalmint', 
   'limitkm','mincharge','blockmins','batchinglimitkm','acceptedseconds','bookinggap','Action'];
-  dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+  dataSource!: any;
+  optionList?: Vehicelcategory[];
   statusname: Brand[] = [
     { value: 'online', viewValue: 'online' },
     { value: 'offline', viewValue: 'offline' },
    
   ];
+ 
+ 
+  
+  // dataSource = new MatTableDataSource<UsersData>(ELEMENT_DATA);
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder) {
+  
+  constructor(public dialog: MatDialog,private router:Router, private _formBuilder:FormBuilder,
+    private optionService: VehiclecategoryService,
+   ) {
     this.addFilter();
   }
-  filter(){
 
+  optionListAll() {
+   
+    this.optionService.cancelList({}).subscribe(res => {
+      if (res) {
+        console.log("res",res);
+        this.renderData(res);
+      }
+    });
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  renderData(data:any){
+    this.optionList = data;
+    console.log(data, this.optionList, 'data all');
+    console.log(data.data, 'data.')
+    this.dataSource = new MatTableDataSource<Vehicelcategory>(
+      
+  data.data.rows
+ 
+
+    );
+    this.dataSource = this.dataSource;
     this.dataSource.paginator = this.paginator;
-    
+  }
+  
+  ngOnInit() {
+    this.optionListAll();
   }
   addFilter(){
     this.filterForm = this._formBuilder.group({
@@ -46,37 +76,48 @@ export class VehicleCategoryComponent  implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource = this.dataSource;
   }
+
   add(){
     this.router.navigate(["/add-vehicle-category"])
   }
-  deleteTicket() {
-   
+  filter(){
+
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.paginator = this.paginator;
+    
+  }
+  deleteRecord(id:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.
+        optionService.cancelDelete({vehicle_category_id: id })
+          .subscribe(
+            res => {
+              console.log(res, 'deleteResp');
+              Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+              this.optionListAll();
+            },
+            error => {
+             
+            }
+          );
+      }
+    });
   }
   
 
 }
-export interface UsersData {
-  name: string;
-  charge_per_km : any;
-  charge_per_min: string;
-  future_date:any;
-  gap_mins: any;
-  icon_url:string;
-  interval_mins: any;
-  limit_km: any;
-  min_charge:any;
-  block_mins:any;
-  batching_limit_km:any;
-  accepted_seconds:any;
-  booking_gap:any;
-}
 
-const ELEMENT_DATA: UsersData[] = [
-  {name: 'online',charge_per_km : 231, charge_per_min:'23', future_date:28, gap_mins:2,icon_url:'hello', 
-  interval_mins: '23',limit_km:3,  min_charge:'23', block_mins:21, batching_limit_km:21,  accepted_seconds:'24'
-,booking_gap:24},
-  
- 
-  
-  
-];
+
+

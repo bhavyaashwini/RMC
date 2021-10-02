@@ -24,8 +24,8 @@ export class VehiclecategoryService {
   }
  
 //Vendor Name List
-cancelList(data: any): Observable<Vehicelcategory[]> {
-  return this.http.post<Vehicelcategory[]>(`${this.baseUrl + '/admin/vehicle_category/all'}`, data);
+cancelList(data: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl + '/admin/vehicle_category/all'}`, data);
 }
 cancelDelete(data: any): Observable<Vehicelcategory[]>{
   return this.http.put<Vehicelcategory[]>(`${this.baseUrl + '/admin/vehicle_category/delete'}`, data);

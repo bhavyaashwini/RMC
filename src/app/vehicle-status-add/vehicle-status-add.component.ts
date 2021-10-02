@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { VehiclestatusService } from '../services/vehiclestatus.service';
 export interface Subject {
   name: string;
 }
@@ -14,7 +15,8 @@ export class VehicleStatusAddComponent implements OnInit {
    vendorForms!: FormGroup;
 
 
-  constructor(public fb: FormBuilder, private router:Router) {}
+  constructor(public fb: FormBuilder, private router:Router,
+    private vehicleService: VehiclestatusService) {}
 
   ngOnInit(): void {
     this.reactiveForm()
@@ -24,14 +26,18 @@ export class VehicleStatusAddComponent implements OnInit {
   reactiveForm() {
     this.vendorForms = this.fb.group({
       status_name: ['', [Validators.required]],
-      color_code: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       
     })
   }
 
   onSubmit(){
-    console.log(this.vendorForms.value);
-    this.router.navigate(["/vehicle-status"]);
+    if (this.vendorForms.valid) {
+      this.vehicleService.cancelCreate(this.vendorForms.value).subscribe(res => {
+        alert("Submited Successfully");
+         this.router.navigateByUrl('/vehicle-status');
+      });
+    }
   }
   Cancel(){
     this.router.navigate(["/vehicle-status"]);
